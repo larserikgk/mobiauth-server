@@ -4,8 +4,11 @@ from django.template import loader
 
 
 def index(request):
-    template = loader.get_template('base.html')
+    if request.user.is_authenticated():
+        template = loader.get_template('userprofile/index_authenticated.html')
+    else:
+        template = loader.get_template('userprofile/index.html')
     context = {
-        'latest_question_list': '',
+        'user': request.user,
     }
     return HttpResponse(template.render(context, request))
