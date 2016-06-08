@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     # Third party apps
     'rest_framework',
     # Custom apps
-    'apps.userprofile'
+    'apps.userprofile',
+    'apps.authentication'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -112,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Oslo'
 
 USE_I18N = True
 
@@ -126,7 +127,7 @@ USE_TZ = True
 
 STATIC_ROOT = 'static/'
 STATIC_URL = '/static/'
-
+LOGIN_URL = '/auth/login/'
 MEDIA_ROOT = 'media'
 
 STATICFILES_DIRS = [

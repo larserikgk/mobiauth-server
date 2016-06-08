@@ -18,14 +18,25 @@
                 <nav>
                     <ul class="nav nav-pills pull-xs-right">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">About</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Contact</a>
+                        {% if user.is_authenticated %}
+                            {% if user.is_staff %}
+                                <li class="nav-item">
+                            <a class="nav-link" href="/admin">Site admin</a>
                         </li>
+                            {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/auth/logout">Log out</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/auth/login">Sign in</a>
+                        </li>
+                        {% endif %}
                     </ul>
                 </nav>
                 <h3 class="text-muted">MobiAuth</h3>
