@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if organization %}
+        <div class="row">
+            <h4>{{ organization }}</h4>
+        </div>
+        <div class="row marketing">
+        </div>
+    {% else %}
+        <div class="alert alert-warning" role="alert">
+            <strong>Insufficient permissions</strong> You do not have acccess to this organization.
+        </div>
+    {% endif %}
+{% endblock content %}

@@ -1,14 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="row">
-    <h4>Greetings, {{ user.first_name}}</h4>
-    </div>
     <div class="row marketing">
         <div class="col-lg-6">
           <h4>Organizations</h4>
           {% for organization in organizations %}
-            <p>{{ organization }}</p>
+            <p><a href="{{ organization.get_absolute_url }}">{{ organization }}</a></p>
             {% endfor %}
         </div>
 

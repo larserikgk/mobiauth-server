@@ -35,3 +35,19 @@ def application(request, application_id):
 
     context = {'application': app}
     return HttpResponse(template.render(context, request))
+
+
+def organization(request, organization_id):
+    template = loader.get_template('userprofile/organization.html')
+    org = get_object_or_404(Organization, id=organization_id)
+    profile = None
+    if UserProfile.objects.filter(organization=org, user=request.user).exists():
+        profile = UserProfile.objects.get(organization=org, user=request.user)
+    else:
+        org = None
+
+    context = {
+        'organization': org,
+        'profile': profile
+    }
+    return HttpResponse(template.render(context, request))

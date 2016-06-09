@@ -10,6 +10,10 @@ class Organization(models.Model):
     def __unicode__(self):
         return self.name
 
+    @models.permalink
+    def get_absolute_url(self):
+        return 'organization', (), {'organization_id': self.id}
+
 
 class UserProfile(models.Model):
     user = models.ForeignKey(User)
