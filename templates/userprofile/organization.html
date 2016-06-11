@@ -2,14 +2,22 @@
 
 {% block content %}
     {% if organization %}
-        <div class="row">
-            <h4>{{ organization }}</h4>
-        </div>
+        <h4>{{ organization }}</h4>
         <div class="row marketing">
         </div>
+
+        <h4>Applications:</h4>
+            <div class="list-group">
+                {% for application in applications %}
+                    <a href="{{ application.get_absolute_url }}" class="list-group-item">
+                        <h4 class="list-group-item-heading">{{ application }}</h4>
+                    </a>
+                {% endfor%}
+            </div>
     {% else %}
         <div class="alert alert-warning" role="alert">
             <strong>Insufficient permissions</strong> You do not have acccess to this organization.
         </div>
     {% endif %}
+
 {% endblock content %}
