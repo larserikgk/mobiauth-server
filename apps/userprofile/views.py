@@ -52,6 +52,50 @@ def organization_detail(request, pk, format=None):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+@api_view(['GET', 'POST'])
+def application_list(request, format=None):
+    """
+    List all applications, or create a new application.
+    """
+    if request.method == 'GET':
+        applications = Application.objects.all()
+        serializer = ApplicationSerializer(applications, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = ApplicationSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def application_detail(request, pk, format=None):
+    """
+    Retrieve, update or delete a application instance.
+    """
+    try:
+        application = Application.objects.get(pk=pk)
+    except Application.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = ApplicationSerializer(application)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = ApplicationSerializer(application, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        application.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 def index(request):
     organizations = []
     applications = []

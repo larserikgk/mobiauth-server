@@ -17,5 +17,5 @@ class UserProfileSerializer(serializers.ModelSerializer):
 class ApplicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Application
-        fields = ('id', 'name', 'organization', 'require_biometrics_photo', 'require_biometrics_audio',
-                  'require_biometrics_video')
+        fields = ('id', 'name', 'organization', 'require_biometrics_photo', 'require_proctoring_audio',
+                  'require_proctoring_video')

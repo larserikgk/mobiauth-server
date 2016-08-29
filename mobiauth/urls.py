@@ -21,6 +21,8 @@ from apps.userprofile.views import *
 userprofile_api_urls = [
     url(r'^organizations/$', organization_list),
     url(r'^organizations/(?P<pk>[0-9]+)$', organization_detail),
+    url(r'^applications/$', application_list),
+    url(r'^applications/(?P<pk>[0-9]+)$', application_detail),
 ]
 
 urlpatterns = [
