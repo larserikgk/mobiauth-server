@@ -22,7 +22,7 @@ class UserProfile(models.Model):
     image = models.ImageField(blank=True, null=True)
 
     def __unicode__(self):
-        return self.user.email
+        return self.user.first_name + ' ' + self.user.last_name
 
 
 class Application(models.Model):

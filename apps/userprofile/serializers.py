@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.userprofile.models import Organization, UserProfile, Application
+from .models import Organization, UserProfile, Application
 
 
 class OrganizationSerializer(serializers.ModelSerializer):

@@ -15,10 +15,23 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from . import settings
+from apps.userprofile.views import *
+
+userprofile_api_urls = [
+    url(r'^organizations/$', organization_list),
+    url(r'^organizations/(?P<pk>[0-9]+)$', organization_detail),
+]
 
 urlpatterns = [
+    # App urls
     url(r'^', include('apps.userprofile.urls')),
     url(r'^auth/', include('apps.authentication.urls')),
+    # Administration urls
     url(r'^admin/', admin.site.urls),
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+    # Api urls
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^api/', include(userprofile_api_urls)),
+
 ]
