@@ -1,24 +1,22 @@
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import get_object_or_404
+from django.http import Http404
 from .models import *
 from .serializers import *
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 
-@api_view(['GET', 'POST'])
-def organization_list(request, format=None):
-    """
-    List all organizations, or create a new organization.
-    """
-    if request.method == 'GET':
+class OrganizationList(APIView):
+    def get(self, request, format=None):
         organizations = Organization.objects.all()
         serializer = OrganizationSerializer(organizations, many=True)
         return Response(serializer.data)
 
-    elif request.method == 'POST':
+    def post(self, request, format=None):
         serializer = OrganizationSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -26,43 +24,39 @@ def organization_list(request, format=None):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def organization_detail(request, pk, format=None):
-    """
-    Retrieve, update or delete a organization instance.
-    """
-    try:
-        organization = Organization.objects.get(pk=pk)
-    except Organization.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+class OrganizationDetail(APIView):
+    def get_object(self, pk):
+        try:
+            return Organization.objects.get(pk=pk)
+        except Organization.DoesNotExist:
+            raise Http404
 
-    if request.method == 'GET':
+    def get(self, request, pk, format=None):
+        organization = self.get_object(pk)
         serializer = OrganizationSerializer(organization)
         return Response(serializer.data)
 
-    elif request.method == 'PUT':
+    def put(self, request, pk, format=None):
+        organization = self.get_object(pk)
         serializer = OrganizationSerializer(organization, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'DELETE':
+    def delete(self, request, pk, format=None):
+        organization = self.get_object(pk)
         organization.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-@api_view(['GET', 'POST'])
-def application_list(request, format=None):
-    """
-    List all applications, or create a new application.
-    """
-    if request.method == 'GET':
+class ApplicationList(APIView):
+    def get(self, request, format=None):
         applications = Application.objects.all()
         serializer = ApplicationSerializer(applications, many=True)
         return Response(serializer.data)
 
-    elif request.method == 'POST':
+    def post(self, request, format=None):
         serializer = ApplicationSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -70,28 +64,28 @@ def application_list(request, format=None):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def application_detail(request, pk, format=None):
-    """
-    Retrieve, update or delete a application instance.
-    """
-    try:
-        application = Application.objects.get(pk=pk)
-    except Application.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+class ApplicationDetail(APIView):
+    def get_object(self, pk):
+        try:
+            return Application.objects.get(pk=pk)
+        except Application.DoesNotExist:
+            raise Http404
 
-    if request.method == 'GET':
+    def get(self, request, pk, format=None):
+        application = self.get_object(pk)
         serializer = ApplicationSerializer(application)
         return Response(serializer.data)
 
-    elif request.method == 'PUT':
+    def put(self, request, pk, format=None):
+        application = self.get_object(pk)
         serializer = ApplicationSerializer(application, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'DELETE':
+    def delete(self, request, pk, format=None):
+        application = self.get_object(pk)
         application.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
