@@ -19,9 +19,10 @@ from . import settings
 from apps.userprofile.views import *
 
 userprofile_api_urls = [
-    url(r'^organizations/$', OrganizationList.as_view()),
+    url(r'^$', api_root),
+    url(r'^organizations/$', OrganizationList.as_view(), name='organization_list'),
     url(r'^organizations/(?P<pk>[0-9]+)$', OrganizationDetail.as_view()),
-    url(r'^applications/$', ApplicationList.as_view()),
+    url(r'^applications/$', ApplicationList.as_view(), name='application_list'),
     url(r'^applications/(?P<pk>[0-9]+)$', ApplicationDetail.as_view()),
 ]
 
