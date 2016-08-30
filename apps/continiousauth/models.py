@@ -4,7 +4,7 @@ from datetime import datetime
 from django.db import models
 from apps.userprofile.models import Application, UserProfile
 
-FLAGS = ((1, 'Accepted'), (2, 'Declined'))
+FLAGS = ((1, 'Undetermined'), (2, 'Accepted'), (3, 'Declined'))
 
 
 class AuthenticationSession(models.Model):

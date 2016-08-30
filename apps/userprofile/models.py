@@ -31,6 +31,8 @@ class Application(models.Model):
     require_biometrics_photo = models.BooleanField(default=False)
     require_proctoring_audio = models.BooleanField(default=False)
     require_proctoring_video = models.BooleanField(default=False)
+    authentication_url_success = models.URLField(default='www.example.com/success')
+    authentication_url_failure = models.URLField(default='www.example.com/failure')
 
     def save(self, *args, **kwargs):
         if not (Group.objects.filter(name=self.get_user_uri()).exists() or
