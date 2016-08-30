@@ -1,9 +1,12 @@
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import get_object_or_404
+
 from .models import *
+from .permissions import HasApplicationAdminAccess
 from .serializers import *
 from rest_framework import generics
+from rest_framework import permissions
 
 
 class OrganizationList(generics.ListCreateAPIView):
@@ -22,6 +25,7 @@ class ApplicationList(generics.ListCreateAPIView):
 
 
 class ApplicationDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (permissions.IsAuthenticated, HasApplicationAdminAccess)
     queryset = Application.objects.all()
     serializer_class = ApplicationSerializer
 
