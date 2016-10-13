@@ -16,7 +16,8 @@ from rest_framework import permissions
 def api_root(request, format=None):
     return Response({
         'organizations': reverse('organization_list', request=request, format=format),
-        'applications': reverse('application_list', request=request, format=format)
+        'applications': reverse('application_list', request=request, format=format),
+        'userprofiles': reverse('userprofile_list', request=request, format=format)
     })
 
 
@@ -39,6 +40,11 @@ class ApplicationDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (permissions.IsAuthenticated, HasApplicationAdminAccess)
     queryset = Application.objects.all()
     serializer_class = ApplicationSerializer
+
+
+class UserProfileList(generics.ListCreateAPIView):
+    queryset = UserProfile.objects.all()
+    serializer_class = UserProfileSerializer
 
 
 def index(request):

@@ -11,7 +11,7 @@ class OrganizationSerializer(serializers.ModelSerializer):
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ('id', 'user', 'organization', 'external_user_id')
+        fields = ('id', 'user', 'organization', 'external_user_id', 'image')
 
 
 class ApplicationSerializer(serializers.ModelSerializer):
