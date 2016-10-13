@@ -18,4 +18,4 @@ class ApplicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Application
         fields = ('id', 'name', 'organization', 'require_biometrics_photo', 'require_proctoring_audio',
-                  'require_proctoring_video')
+                  'require_proctoring_video', 'authentication_url_success', 'authentication_url_failure')

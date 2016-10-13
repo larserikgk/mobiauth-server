@@ -19,6 +19,7 @@ def api_root(request, format=None):
         'applications': reverse('application_list', request=request, format=format)
     })
 
+
 class OrganizationList(generics.ListCreateAPIView):
     queryset = Organization.objects.all()
     serializer_class = OrganizationSerializer
