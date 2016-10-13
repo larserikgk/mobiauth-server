@@ -16,7 +16,8 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from . import settings
-from apps.userprofile.views import api_root, OrganizationList, OrganizationDetail, ApplicationList, ApplicationDetail, UserProfileList
+from apps.userprofile.views import api_root, OrganizationList, OrganizationDetail, ApplicationList, ApplicationDetail,\
+    UserProfileList, UserList, UserDetail
 #from apps.continiousauth.views import AuthenticationSessionList
 
 userprofile_api_urls = [
@@ -25,7 +26,9 @@ userprofile_api_urls = [
     url(r'^organizations/(?P<pk>[0-9]+)$', OrganizationDetail.as_view()),
     url(r'^applications/$', ApplicationList.as_view(), name='application_list'),
     url(r'^applications/(?P<pk>[0-9]+)$', ApplicationDetail.as_view()),
-    url(r'^userprofiles/$', UserProfileList.as_view(), name='userprofile_list')
+    url(r'^userprofiles/$', UserProfileList.as_view(), name='userprofile_list'),
+    url(r'^users/$', UserList.as_view(), name='user_list'),
+    url(r'^users/(?P<username>.+)/$', UserDetail.as_view(), name='user_detail')
     #url(r'^authentication/$', AuthenticationSessionList, name='authentication_session_list'),
 ]
 

@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
+from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
@@ -17,7 +18,8 @@ def api_root(request, format=None):
     return Response({
         'organizations': reverse('organization_list', request=request, format=format),
         'applications': reverse('application_list', request=request, format=format),
-        'userprofiles': reverse('userprofile_list', request=request, format=format)
+        'userprofiles': reverse('userprofile_list', request=request, format=format),
+        'users': reverse('user_list', request=request, format=format),
     })
 
 
@@ -45,6 +47,21 @@ class ApplicationDetail(generics.RetrieveUpdateDestroyAPIView):
 class UserProfileList(generics.ListCreateAPIView):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
+
+
+class UserList(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class UserDetail(generics.ListAPIView):
+    permission_classes = (permissions.IsAuthenticated, HasApplicationAdminAccess)
+    serializer_class = UserSerializer
+
+    def get_queryset(self):
+        print self.kwargs['username']
+        return User.objects.filter(username=self.kwargs['username'])
+        #return get_object_or_404(User, username=self.kwargs['username'])
 
 
 def index(request):

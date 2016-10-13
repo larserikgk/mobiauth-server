@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
 from .models import Organization, UserProfile, Application
 
@@ -19,3 +20,9 @@ class ApplicationSerializer(serializers.ModelSerializer):
         model = Application
         fields = ('id', 'name', 'organization', 'require_biometrics_photo', 'require_proctoring_audio',
                   'require_proctoring_video', 'authentication_url_success', 'authentication_url_failure')
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email')
