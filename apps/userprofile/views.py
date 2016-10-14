@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
 from .models import *
-from .permissions import HasApplicationAdminAccess
+from .permissions import HasApplicationAdminAccess, AuthenticatedUserEqualsQueriedUser
 from .serializers import *
 from rest_framework import generics
 from rest_framework import permissions
@@ -54,14 +54,13 @@ class UserList(generics.ListCreateAPIView):
     serializer_class = UserSerializer
 
 
-class UserDetail(generics.ListAPIView):
-    permission_classes = (permissions.IsAuthenticated, HasApplicationAdminAccess)
+class UserDetail(generics.RetrieveAPIView):
+    permission_classes = (permissions.IsAuthenticated, AuthenticatedUserEqualsQueriedUser)
     serializer_class = UserSerializer
+    lookup_field = 'username'
 
     def get_queryset(self):
-        print self.kwargs['username']
         return User.objects.filter(username=self.kwargs['username'])
-        #return get_object_or_404(User, username=self.kwargs['username'])
 
 
 def index(request):
