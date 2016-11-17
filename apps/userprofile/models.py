@@ -8,7 +8,7 @@ class Organization(models.Model):
     name = models.CharField(max_length=100)
 
     def __unicode__(self):
-        return self.name
+        return unicode(self.name)
 
     @models.permalink
     def get_absolute_url(self):
@@ -22,7 +22,7 @@ class UserProfile(models.Model):
     image = models.ImageField(blank=True, null=True)
 
     def __unicode__(self):
-        return self.user.first_name + ' ' + self.user.last_name
+        return unicode(self.user.first_name + ' ' + self.user.last_name)
 
 
 class Application(models.Model):
@@ -75,7 +75,7 @@ class Application(models.Model):
             return False
 
     def __unicode__(self):
-        return self.name
+        return unicode(self.name)
 
     @models.permalink
     def get_absolute_url(self):

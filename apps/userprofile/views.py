@@ -2,11 +2,9 @@ from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
-from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
-# from .models import *
 from .permissions import HasApplicationAdminAccess, AuthenticatedUserEqualsQueriedUser
 from .serializers import *
 from rest_framework import generics

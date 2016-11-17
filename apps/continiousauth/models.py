@@ -11,8 +11,8 @@ class AuthenticationSession(models.Model):
     application = models.ForeignKey(Application)
     user_profile = models.ForeignKey(UserProfile)
     flag = models.SmallIntegerField('Flag', choices=FLAGS, default=1, blank=True)
-    start_time = models.TimeField(default=datetime.now())
-    end_time = models.TimeField(blank=True, null=True)
+    start_time = models.DateTimeField(default=datetime.now())
+    end_time = models.DateTimeField(blank=True, null=True)
 
     def __unicode__(self):
-        return self.pk
+        return unicode(self.pk)
