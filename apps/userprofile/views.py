@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
-from .models import *
+# from .models import *
 from .permissions import HasApplicationAdminAccess, AuthenticatedUserEqualsQueriedUser
 from .serializers import *
 from rest_framework import generics
@@ -20,6 +20,8 @@ def api_root(request, format=None):
         'applications': reverse('application_list', request=request, format=format),
         'userprofiles': reverse('userprofile_list', request=request, format=format),
         'users': reverse('user_list', request=request, format=format),
+        'authentication_sessions': reverse('authentication_session_list', request=request, format=format),
+        'authentication_session_create': reverse('create_authentication_session', request=request, format=format),
     })
 
 
