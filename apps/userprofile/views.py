@@ -114,3 +114,13 @@ def organization(request, organization_id):
         'applications': applications,
     }
     return HttpResponse(template.render(context, request))
+
+
+def support(request):
+    template = loader.get_template('userprofile/support.html')
+    return HttpResponse(template.render())
+
+
+def about(request):
+    template = loader.get_template('userprofile/about.html')
+    return HttpResponse(template.render())
