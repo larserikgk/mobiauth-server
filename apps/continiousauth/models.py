@@ -9,7 +9,8 @@ FLAGS = ((1, 'Undetermined'), (2, 'Accepted'), (3, 'Declined'))
 
 class AuthenticationSession(models.Model):
     application = models.ForeignKey(Application)
-    user_profile = models.ForeignKey(UserProfile)
+    external_session_id = models.UUIDField(blank=True, null=True)
+    session_photo_bytes = models.TextField(blank=True, null=True)
     flag = models.SmallIntegerField('Flag', choices=FLAGS, default=1, blank=True)
     start_time = models.DateTimeField(default=datetime.now())
     end_time = models.DateTimeField(blank=True, null=True)
