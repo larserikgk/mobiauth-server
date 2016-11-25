@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 from datetime import datetime
 from django.db import models
-from ..userprofile.models import Application, UserProfile
+from ..userprofile.models import Application
 
 FLAGS = ((1, 'Undetermined'), (2, 'Accepted'), (3, 'Declined'))
 
