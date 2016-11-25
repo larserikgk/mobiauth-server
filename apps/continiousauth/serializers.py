@@ -6,4 +6,4 @@ from .models import AuthenticationSession
 class AuthenticationSessionSerializer(serializers.ModelSerializer):
     class Meta:
         model = AuthenticationSession
-        fields = ('application', 'external_session_id', 'session_photo_bytes', 'flag', 'start_time', 'end_time')
+        fields = ('application', 'external_session_id', 'session_photo_bytes', 'flag')
