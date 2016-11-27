@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
-from .permissions import HasApplicationAdminAccess, AuthenticatedUserEqualsQueriedUser
+from .permissions import HasApplicationAdminAccess, AuthenticatedUserEqualsQueriedUser, HasApplicationUserAccess
 from .serializers import *
 from rest_framework import generics
 from rest_framework import permissions
@@ -36,6 +36,7 @@ class OrganizationDetail(generics.RetrieveUpdateDestroyAPIView):
 class ApplicationList(generics.ListCreateAPIView):
     queryset = Application.objects.all()
     serializer_class = ApplicationSerializer
+    permission_classes = (permissions.IsAuthenticated, HasApplicationUserAccess)
 
 
 class ApplicationDetail(generics.RetrieveUpdateDestroyAPIView):
