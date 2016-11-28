@@ -34,9 +34,14 @@ class OrganizationDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class ApplicationList(generics.ListCreateAPIView):
-    queryset = Application.objects.all()
     serializer_class = ApplicationSerializer
-    permission_classes = (permissions.IsAuthenticated, HasApplicationUserAccess)
+
+    def get_queryset(self):
+        applications = Application.objects.all()
+        user = self.request.user
+        return filter(
+                lambda a: a.has_access(user, a.get_user_uri()) or a.has_access(user, a.get_admin_uri()),
+                applications)
 
 
 class ApplicationDetail(generics.RetrieveUpdateDestroyAPIView):
