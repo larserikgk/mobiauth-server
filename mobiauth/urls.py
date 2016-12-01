@@ -1,24 +1,10 @@
-"""mobiauth URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/1.9/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.conf.urls import url, include
-    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
-"""
 from django.conf.urls import url, include
 from django.contrib import admin
 from . import settings
 from apps.userprofile.views import api_root, OrganizationList, OrganizationDetail, ApplicationList, ApplicationDetail,\
     UserProfileList, UserList, UserDetail
-from apps.continiousauth.views import AuthenticationSessionList,  CreateAuthenticationSession
+from apps.continiousauth.views import AuthenticationSessionList, CreateAuthenticationSession,\
+    verify_authentication_session
 
 api_urls = [
     # Root
@@ -35,7 +21,10 @@ api_urls = [
     url(r'^users/(?P<username>.+)/$', UserDetail.as_view(), name='user_detail'),
     # Continuous authentication
     url(r'^authentication/$', AuthenticationSessionList.as_view(), name='authentication_session_list'),
-    url(r'^authentication/create', CreateAuthenticationSession.as_view(), name='create_authentication_session')
+    url(r'^authentication/create', CreateAuthenticationSession.as_view(), name='create_authentication_session'),
+    url(r'^authentication/verify/(?P<external_session_id>.+)/$',
+        verify_authentication_session,
+        name='verify_authentication_session')
 ]
 
 urlpatterns = [
